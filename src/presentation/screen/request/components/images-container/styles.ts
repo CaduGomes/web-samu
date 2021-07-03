@@ -16,3 +16,13 @@ export const Image = styled.div`
     height: 100%;
   }
 `;
+
+export const Video = styled.div`
+  flex: 0 0 150px;
+  padding-right: 10px;
+
+  video {
+    width: 100%;
+    height: 100%;
+  }
+`;

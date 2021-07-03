@@ -1,7 +1,10 @@
-import { RequestScreen } from "presentation/screen";
 import React from "react";
-import { makeRemoteAmbulanceRequest } from "../usecases";
+import { RequestScreen } from "presentation/screen";
+import { makeAmbulanceRequestUseCase, makeChatUseCase } from "../usecases";
 
 export const MakeRequestScreen: React.FC = () => (
-  <RequestScreen useRequests={makeRemoteAmbulanceRequest()} />
+  <RequestScreen
+    useRequests={makeAmbulanceRequestUseCase()}
+    useChat={makeChatUseCase()}
+  />
 );

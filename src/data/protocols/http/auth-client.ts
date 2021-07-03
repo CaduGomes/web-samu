@@ -1,5 +1,5 @@
 import { UserModel } from "domain/models";
-import { ISubject } from "../observer";
+import { ISubject } from "core/observer";
 
 export interface AuthClient extends ISubject {
   signUpWithEmailandPassword: (

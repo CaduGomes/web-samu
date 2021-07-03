@@ -1,13 +1,13 @@
 import React from "react";
 import { RequestListScreen } from "presentation/screen";
 import {
-  makeRemoteAmbulanceRequest,
-  makeRemoteAuthentication,
+  makeAmbulanceRequestUseCase,
+  makeAuthUseCase,
 } from "main/factories/usecases";
 
 export const MakeRequestListScreen: React.FC = () => (
   <RequestListScreen
-    useRequests={makeRemoteAmbulanceRequest()}
-    useAuththentication={makeRemoteAuthentication()}
+    useRequests={makeAmbulanceRequestUseCase()}
+    useAuththentication={makeAuthUseCase()}
   />
 );

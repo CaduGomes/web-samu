@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 import { AuthContext } from "./context";
-import { AuthClient } from "data/protocols/http";
-import { ConcreteSubject } from "infra/state/auth-state";
-import { IObserver, ISubject } from "data/protocols/observer";
+import { IObserver, ISubject } from "core/observer";
+import { AuthUseCase } from "domain/usecases";
+import { AuthRepositoryImpl } from "data/repositories";
 
 type Props = {
   children: ReactNode;
-  authCliente: AuthClient;
+  authCliente: AuthUseCase;
 };
 
 export class AuthProvider extends React.Component<Props> implements IObserver {
@@ -34,7 +34,7 @@ export class AuthProvider extends React.Component<Props> implements IObserver {
   }
 
   update(subject: ISubject) {
-    if (subject instanceof ConcreteSubject) {
+    if (subject instanceof AuthRepositoryImpl) {
       this.setState({ user: subject.userData });
     }
   }

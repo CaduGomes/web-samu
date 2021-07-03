@@ -7,6 +7,8 @@ export function getDistanceFromLatLonInKm(
   position1: Geopoint,
   position2: Geopoint
 ) {
+  // console.log(position2);
+  // console.log(position1);
   var deg2rad = function (deg: number) {
       return deg * (Math.PI / 180);
     },

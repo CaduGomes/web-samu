@@ -6,7 +6,6 @@ import { Container } from "./styles";
 type Props = {
   latitude: number;
   longitude: number;
-  // fullscreen: boolean;
 };
 
 export const MapView: React.FC<Props> = ({ latitude, longitude }) => {
@@ -23,9 +22,7 @@ export const MapView: React.FC<Props> = ({ latitude, longitude }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={[latitude, longitude]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          <Popup>Ocorrência</Popup>
         </Marker>
       </MapContainer>
     </Container>

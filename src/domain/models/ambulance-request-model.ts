@@ -9,6 +9,12 @@ export type AmbulanceRequestModel = {
       url: string;
     }
   ];
+  videos: [
+    {
+      name: string;
+      url: string;
+    }
+  ];
   location: firebase.firestore.GeoPoint;
   isOpen: boolean;
 };

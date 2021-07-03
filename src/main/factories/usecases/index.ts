@@ -1,2 +1,3 @@
-export * from "./remote-authentication-factory";
-export * from "./remote-ambulance-request-factory";
+export * from "./auth-factory";
+export * from "./ambulance-request-factory";
+export * from "./chat-factory";

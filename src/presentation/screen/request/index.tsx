@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
-import { AmbulanceRequest } from "domain/usecases";
 import { getDistanceFromLatLonInKm, Geopoint } from "presentation/utils";
 
 import {
@@ -22,15 +21,18 @@ import {
   ImagesArea,
 } from "./styles";
 
+import { AmbulanceRequestUseCase, ChatUseCase } from "domain/usecases";
+
 type Params = {
   id: string;
 };
 
 type Props = {
-  useRequests: AmbulanceRequest;
+  useRequests: AmbulanceRequestUseCase;
+  useChat: ChatUseCase;
 };
 
-export const RequestScreen: React.FC<Props> = ({ useRequests }) => {
+export const RequestScreen: React.FC<Props> = ({ useRequests, useChat }) => {
   const { id } = useParams<Params>();
   const [userLocation, setUserLocation] = useState<Geopoint>({
     latitude: 0,
@@ -42,6 +44,7 @@ export const RequestScreen: React.FC<Props> = ({ useRequests }) => {
   });
 
   useEffect(() => {
+    document.title = "Solicitação";
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((e) => {
@@ -74,12 +77,11 @@ export const RequestScreen: React.FC<Props> = ({ useRequests }) => {
             />
           </DataArea>
           <ImagesArea>
-            <Title>Imagens</Title>
-            <ImagesContainer images={data.images} />
+            <Title>Imagens e Vídeos</Title>
+            <ImagesContainer images={data.images} videos={data.videos} />
           </ImagesArea>
           <ChatArea>
-            <Title>Chat</Title>
-            <ChatContainer />
+            <ChatContainer useChat={useChat} id={id} />
           </ChatArea>
           <MapArea>
             <MapView

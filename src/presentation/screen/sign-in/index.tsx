@@ -1,5 +1,5 @@
-import { Authentication } from "domain/usecases/authentication";
 import React from "react";
+import { AuthUseCase } from "domain/usecases";
 
 import {
   Container,
@@ -10,7 +10,7 @@ import {
 } from "./styles";
 
 type Props = {
-  useAuthentication: Authentication;
+  useAuthentication: AuthUseCase;
 };
 
 export const SignInScreen: React.FC<Props> = ({ useAuthentication }) => {

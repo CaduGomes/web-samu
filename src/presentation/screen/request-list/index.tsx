@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { AmbulanceRequest, Authentication } from "domain/usecases";
-import { getDistanceFromLatLonInKm, Geopoint } from "presentation/utils";
+import { Geopoint } from "presentation/utils";
 import { RequestCard } from "./components";
 
 import { Container, RequestsContainer, NavbarContainer } from "./styles";
+import { AmbulanceRequestUseCase, AuthUseCase } from "domain/usecases";
 
 type Props = {
-  useRequests: AmbulanceRequest;
-  useAuththentication: Authentication;
+  useRequests: AmbulanceRequestUseCase;
+  useAuththentication: AuthUseCase;
 };
 
 export const RequestListScreen: React.FC<Props> = ({
   useRequests,
   useAuththentication,
 }) => {
-  // const [loading, setLoading] = useState(true);
-  // const [data, setData] = useState<AmbulanceRequest.Model[] | null>(null);
-  const [userLocation, setUserLocation] = useState<Geopoint>({
-    latitude: 0,
-    longitude: 0,
-  });
+  const [userLocation, setUserLocation] = useState<Geopoint | null>(null);
 
   const { data, error } = useSWR("requests", () => useRequests.get(), {
     refreshInterval: 5000,
   });
+
+  // console.log(data);
+  // console.log(error);
 
   async function signOutHandler() {
     await useAuththentication.signOut();
@@ -44,15 +42,6 @@ export const RequestListScreen: React.FC<Props> = ({
     getLocation();
   }, []);
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     const data = await useRequests.get();
-  //     setData(data);
-  //     setLoading(false);
-  //   }
-  //   getData();
-  // }, [useRequests]);
-
   return (
     <Container>
       <NavbarContainer>
@@ -60,16 +49,13 @@ export const RequestListScreen: React.FC<Props> = ({
       </NavbarContainer>
       {!data && !error ? (
         <p>Loading...</p>
-      ) : data ? (
+      ) : data && userLocation ? (
         <RequestsContainer>
           {data.map((request, index) => (
             <RequestCard
               key={`request-${index}`}
               {...request}
-              locationString={getDistanceFromLatLonInKm(
-                userLocation,
-                request.location
-              )}
+              locationString={userLocation.latitude.toString()}
             />
           ))}
         </RequestsContainer>

@@ -1,4 +1,4 @@
-import { IObserver, ISubject } from "data/protocols/observer";
+import { IObserver, ISubject } from "core/observer";
 import { UserModel } from "domain/models";
 
 export class ConcreteSubject implements ISubject {
