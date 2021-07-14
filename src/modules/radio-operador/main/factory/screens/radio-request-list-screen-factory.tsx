@@ -1,6 +1,6 @@
 import { RadioRequestListScreen } from "../../../presentation/screens";
-import { makeRequestUseCase } from "../usecases";
+import { makeRadioRequestUseCase } from "../usecases";
 
 export const MakeRadioRequestListScreen = () => (
-  <RadioRequestListScreen useRequest={makeRequestUseCase()} />
+  <RadioRequestListScreen useRequest={makeRadioRequestUseCase()} />
 );

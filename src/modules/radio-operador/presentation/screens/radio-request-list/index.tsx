@@ -2,10 +2,10 @@ import React from "react";
 import useSWR from "swr";
 import { Container, RequestsContainer } from "./styles";
 import { Card } from "./components";
-import { RequestUseCase } from "../../../domain/usecases";
+import { RadioRequestUseCase } from "../../../domain/usecases";
 
 type Props = {
-  useRequest: RequestUseCase;
+  useRequest: RadioRequestUseCase;
 };
 
 export const RadioRequestListScreen: React.FC<Props> = ({ useRequest }) => {

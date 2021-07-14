@@ -1,1 +1,1 @@
-export * from "./request-usecase-factory";
+export * from "./medico-request-usecase-factory";

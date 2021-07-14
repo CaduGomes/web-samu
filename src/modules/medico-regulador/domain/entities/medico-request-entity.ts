@@ -1,4 +1,4 @@
-export type RequestEntity = {
+export type MedicoRequestEntity = {
   id: string;
   createAt: Date;
   images: [

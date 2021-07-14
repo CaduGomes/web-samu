@@ -1,1 +1,1 @@
-export * from "./request-usecase-factory";
+export * from "./tarm-request-usecase-factory";

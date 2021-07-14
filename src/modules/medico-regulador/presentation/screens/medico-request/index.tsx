@@ -40,6 +40,12 @@ export const MedicoRequestScreen: React.FC<Props> = ({
     refreshInterval: 10000,
   });
 
+  async function sendRequest() {
+    await useRequests.send({
+      id,
+    });
+  }
+
   return (
     <Container>
       {!data && !error ? (
@@ -48,6 +54,7 @@ export const MedicoRequestScreen: React.FC<Props> = ({
         <>
           <DataArea>
             <Title>Dados</Title>
+            <button onClick={sendRequest}>Enviar</button>
             <DataContainer
               id={id}
               createAt={data.createAt.toLocaleString()}

@@ -1,8 +1,8 @@
 // import firebase from "firebase/app";
 import { firestore } from "core/infra/firebase";
 
-import { RequestEntity } from "../../domain/entities";
-import { RequestRepository } from "modules/tarm/domain/repositories";
+import { MedicoRequestEntity } from "../../domain/entities";
+import { MedicoRequestRepository } from "../../domain/repositories";
 
 // const converter = {
 //   toFirestore: (data: RequestEntity) => data,
@@ -10,11 +10,14 @@ import { RequestRepository } from "modules/tarm/domain/repositories";
 //     snap.data() as RequestEntity,
 // };
 
-export class RequestRepositoryImpl implements RequestRepository {
-  async get(): Promise<RequestRepository.Model[]> {
-    const querySnapshot = await firestore.collection("AmbulanceRequest").get();
+export class RequestRepositoryImpl implements MedicoRequestRepository {
+  async get(): Promise<MedicoRequestRepository.Model[]> {
+    const querySnapshot = await firestore
+      .collection("AmbulanceRequest")
+      .where("state", "==", 1)
+      .get();
 
-    const requests: RequestEntity[] = querySnapshot.docs.map((doc) => ({
+    const requests: MedicoRequestEntity[] = querySnapshot.docs.map((doc) => ({
       createAt: doc.data().createAt.toDate(),
       id: doc.id,
       images: doc.data().images,
@@ -32,7 +35,7 @@ export class RequestRepositoryImpl implements RequestRepository {
 
   async getOne({
     id,
-  }: RequestRepository.GetOneParams): Promise<RequestRepository.Model> {
+  }: MedicoRequestRepository.GetOneParams): Promise<MedicoRequestRepository.Model> {
     const querySnapshot = await firestore
       .collection("AmbulanceRequest")
       .doc(id)
@@ -40,7 +43,7 @@ export class RequestRepositoryImpl implements RequestRepository {
 
     const doc = querySnapshot.data();
     if (doc) {
-      const request: RequestEntity = {
+      const request: MedicoRequestEntity = {
         createAt: doc.createAt.toDate(),
         id: querySnapshot.id,
         images: doc.images,
@@ -59,5 +62,9 @@ export class RequestRepositoryImpl implements RequestRepository {
 
   async close(): Promise<void> {}
 
-  async send(): Promise<void> {}
+  async send({ id }: MedicoRequestRepository.SendParams): Promise<void> {
+    await firestore.collection("AmbulanceRequest").doc(id).update({
+      state: 2,
+    });
+  }
 }

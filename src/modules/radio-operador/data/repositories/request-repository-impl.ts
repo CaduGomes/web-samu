@@ -1,20 +1,23 @@
 // import firebase from "firebase/app";
 import { firestore } from "core/infra/firebase";
 
-import { RequestEntity } from "../../domain/entities";
-import { RequestRepository } from "modules/tarm/domain/repositories";
+import { RadioRequestEntity } from "../../domain/entities";
+import { RadioRequestRepository } from "../../domain/repositories";
 
 // const converter = {
-//   toFirestore: (data: RequestEntity) => data,
+//   toFirestore: (data: RadioRequestEntity) => data,
 //   fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
-//     snap.data() as RequestEntity,
+//     snap.data() as RadioRequestEntity,
 // };
 
-export class RequestRepositoryImpl implements RequestRepository {
-  async get(): Promise<RequestRepository.Model[]> {
-    const querySnapshot = await firestore.collection("AmbulanceRequest").get();
+export class RadioRequestRepositoryImpl implements RadioRequestRepository {
+  async get(): Promise<RadioRequestRepository.Model[]> {
+    const querySnapshot = await firestore
+      .collection("AmbulanceRequest")
+      .where("state", "==", 2)
+      .get();
 
-    const requests: RequestEntity[] = querySnapshot.docs.map((doc) => ({
+    const requests: RadioRequestEntity[] = querySnapshot.docs.map((doc) => ({
       createAt: doc.data().createAt.toDate(),
       id: doc.id,
       images: doc.data().images,
@@ -32,7 +35,7 @@ export class RequestRepositoryImpl implements RequestRepository {
 
   async getOne({
     id,
-  }: RequestRepository.GetOneParams): Promise<RequestRepository.Model> {
+  }: RadioRequestRepository.GetOneParams): Promise<RadioRequestRepository.Model> {
     const querySnapshot = await firestore
       .collection("AmbulanceRequest")
       .doc(id)
@@ -40,12 +43,11 @@ export class RequestRepositoryImpl implements RequestRepository {
 
     const doc = querySnapshot.data();
     if (doc) {
-      const request: RequestEntity = {
+      const request: RadioRequestEntity = {
         createAt: doc.createAt.toDate(),
         id: querySnapshot.id,
         images: doc.images,
         videos: doc.videos,
-        isOpen: doc.isOpen,
         location: {
           lat: doc.location.latitude,
           lng: doc.location.longitude,
@@ -59,5 +61,9 @@ export class RequestRepositoryImpl implements RequestRepository {
 
   async close(): Promise<void> {}
 
-  async send(): Promise<void> {}
+  async send({ id }: RadioRequestRepository.SendParams): Promise<void> {
+    await firestore.collection("AmbulanceRequest").doc(id).update({
+      state: 3,
+    });
+  }
 }

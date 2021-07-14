@@ -1,29 +1,19 @@
 // import firebase from "firebase/app";
 import { firestore } from "core/infra/firebase";
 
-import { RequestEntity } from "../../domain/entities";
-import { RequestRepository } from "modules/tarm/domain/repositories";
+import { TARMRequestEntity } from "../../domain/entities";
+import { TARMRequestRepository } from "modules/tarm/domain/repositories";
 
-// const converter = {
-//   toFirestore: (data: RequestEntity) => data,
-//   fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
-//     snap.data() as RequestEntity,
-// };
+export class RequestRepositoryImpl implements TARMRequestRepository {
+  async get(): Promise<TARMRequestRepository.Model[]> {
+    const querySnapshot = await firestore
+      .collection("AmbulanceRequest")
+      .where("state", "==", 0)
+      .get();
 
-export class RequestRepositoryImpl implements RequestRepository {
-  async get(): Promise<RequestRepository.Model[]> {
-    const querySnapshot = await firestore.collection("AmbulanceRequest").get();
-
-    const requests: RequestEntity[] = querySnapshot.docs.map((doc) => ({
+    const requests: TARMRequestEntity[] = querySnapshot.docs.map((doc) => ({
       createAt: doc.data().createAt.toDate(),
       id: doc.id,
-      images: doc.data().images,
-      videos: doc.data().videos,
-      isOpen: doc.data().isOpen,
-      location: {
-        lat: doc.data().location.lat,
-        lng: doc.data().location.lng,
-      },
     }));
 
     return requests;
@@ -31,7 +21,7 @@ export class RequestRepositoryImpl implements RequestRepository {
 
   async getOne({
     id,
-  }: RequestRepository.GetOneParams): Promise<RequestRepository.Model> {
+  }: TARMRequestRepository.GetOneParams): Promise<TARMRequestRepository.Model> {
     const querySnapshot = await firestore
       .collection("AmbulanceRequest")
       .doc(id)
@@ -39,16 +29,9 @@ export class RequestRepositoryImpl implements RequestRepository {
 
     const doc = querySnapshot.data();
     if (doc) {
-      const request: RequestEntity = {
+      const request: TARMRequestEntity = {
         createAt: doc.createAt.toDate(),
         id: querySnapshot.id,
-        images: doc.images,
-        videos: doc.videos,
-        isOpen: doc.isOpen,
-        location: {
-          lat: doc.location.lat,
-          lng: doc.location.lng,
-        },
       };
 
       return request;
@@ -58,5 +41,9 @@ export class RequestRepositoryImpl implements RequestRepository {
 
   async close(): Promise<void> {}
 
-  async send(): Promise<void> {}
+  async send({ id }: TARMRequestRepository.SendParams): Promise<void> {
+    await firestore.collection("AmbulanceRequest").doc(id).update({
+      state: 1,
+    });
+  }
 }

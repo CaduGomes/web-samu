@@ -1,1 +1,1 @@
-export * from "./request-entity";
+export * from "./tarm-request-entity";

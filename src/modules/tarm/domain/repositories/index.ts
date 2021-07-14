@@ -1,1 +1,1 @@
-export * from "./request-repository";
+export * from "./tarm-request-repository";

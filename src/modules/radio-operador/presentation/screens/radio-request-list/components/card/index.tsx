@@ -1,11 +1,11 @@
 import React from "react";
 
-import { RequestEntity } from "../../../../../domain/entities/request-entity";
+import { RadioRequestEntity } from "../../../../../domain/entities";
 
 import { Container } from "./styles";
 
 type Props = {
-  data: RequestEntity;
+  data: RadioRequestEntity;
 };
 
 export const Card: React.FC<Props> = ({ data }) => {
@@ -13,7 +13,6 @@ export const Card: React.FC<Props> = ({ data }) => {
     <Container to={`/request/${data.id}`}>
       <p>Id: {data.id}</p>
       <p>Data: {data.createAt.toLocaleString()}</p>
-      <p>Aberta: {data.isOpen ? "Sim" : "Não"}</p>
     </Container>
   );
 };

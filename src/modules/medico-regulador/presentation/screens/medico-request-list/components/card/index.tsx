@@ -1,11 +1,11 @@
 import React from "react";
 
-import { RequestEntity } from "../../../../../domain/entities/request-entity";
+import { MedicoRequestEntity } from "../../../../../domain/entities";
 
 import { Container } from "./styles";
 
 type Props = {
-  data: RequestEntity;
+  data: MedicoRequestEntity;
 };
 
 export const Card: React.FC<Props> = ({ data }) => {

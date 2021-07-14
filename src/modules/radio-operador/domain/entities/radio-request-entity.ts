@@ -1,4 +1,4 @@
-export type RequestEntity = {
+export type RadioRequestEntity = {
   id: string;
   createAt: Date;
   images: [
@@ -17,5 +17,4 @@ export type RequestEntity = {
     lat: number;
     lng: number;
   };
-  isOpen: boolean;
 };

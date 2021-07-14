@@ -20,9 +20,14 @@ export const TARMRequestScreen: React.FC<Props> = ({ useRequest, useChat }) => {
   const { id } = useParams<Params>();
   const { data } = useSWR(id, (id) => useRequest.getOne(id));
 
+  async function sendRequest() {
+    await useRequest.send({ id });
+  }
+
   return (
     <Container>
       <ChatComponent id={id} useChat={useChat} />
+      <button onClick={sendRequest}>Enviar</button>
     </Container>
   );
 };
