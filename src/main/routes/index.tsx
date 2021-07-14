@@ -1,32 +1,56 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import {
-  MakeRequestListScreen,
-  MakeSignInScreen,
-} from "main/factories/screens";
-import { useAuth } from "data/context/auth";
-import { MakeRequestScreen } from "main/factories/screens/request-screen-factory";
+import { BrowserRouter, Switch } from "react-router-dom";
+import { useAuth } from "modules/auth/data/context/auth";
+import { MakeNavbar } from "../factories/components";
+
+import AuthRouter from "../../modules/auth/main/router";
+import TARMRouter from "../../modules/tarm/main/router";
+import MedicoRouter from "../../modules/medico-regulador/main/router";
+import RadioRouter from "modules/radio-operador/main/router";
+
+function RoleSelector() {
+  const { role, user } = useAuth();
+  if (user)
+    switch (role) {
+      case "TARM":
+        return (
+          <>
+            <MakeNavbar />
+            <div id="container">
+              <TARMRouter />
+            </div>
+          </>
+        );
+      case "MEDICO_REGULADOR":
+        return (
+          <>
+            <MakeNavbar />
+            <div id="container">
+              <MedicoRouter />
+            </div>
+          </>
+        );
+      case "RADIO_OPERADOR":
+        return (
+          <>
+            <MakeNavbar />
+            <div id="container">
+              <RadioRouter />
+            </div>
+          </>
+        );
+      default:
+        return <AuthRouter />;
+    }
+
+  return <AuthRouter />;
+}
 
 export const Router: React.FC = () => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading</div>;
-  }
-
-  if (!user?.uid) {
-    return <MakeSignInScreen />;
-  }
-
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/request-list" component={MakeRequestListScreen} />
-        <Route path="/request-list/:id" component={MakeRequestScreen} />
-
-        <Route path="*">
-          <Redirect to="/request-list" />
-        </Route>
+        <RoleSelector />
       </Switch>
     </BrowserRouter>
   );

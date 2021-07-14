@@ -1,8 +1,8 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle, theme } from "presentation/styles";
+import { GlobalStyle, theme } from "core/styles";
 import { Router } from "./routes";
-import { MakeAuthProvider } from "./factories/context";
+import { MakeAuthProvider } from "../modules/auth/main/factories/context";
 
 const App: React.FC = () => {
   return (
