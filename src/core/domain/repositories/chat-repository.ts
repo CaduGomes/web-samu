@@ -10,6 +10,7 @@ export declare namespace ChatRepository {
   type Post = {
     text: string;
     id: string;
+    answers?: string[];
   };
   type Watch = {
     id: string;

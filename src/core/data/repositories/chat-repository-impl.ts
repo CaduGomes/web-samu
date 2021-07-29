@@ -45,17 +45,21 @@ export class ChatRepositoryImpl implements ChatRepository {
     this.notify();
   }
 
-  async post({ id, text }: ChatRepository.Post): Promise<void> {
+  async post({ id, text, answers }: ChatRepository.Post): Promise<void> {
     const messagesRef = firestore
       .collection("AmbulanceRequest")
       .doc(id)
       .collection("messages");
-
     const data: MessageEntity = {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       direction: "admin",
       text: text,
+      answered: false,
     };
+
+    if (answers) {
+      data.answers = answers;
+    }
 
     messagesRef.add(data);
   }

@@ -1,5 +1,6 @@
 export type MedicoRequestEntity = {
   id: string;
+  notes: string;
   createAt: Date;
   images: [
     {
@@ -17,5 +18,4 @@ export type MedicoRequestEntity = {
     lat: number;
     lng: number;
   };
-  isOpen: boolean;
 };

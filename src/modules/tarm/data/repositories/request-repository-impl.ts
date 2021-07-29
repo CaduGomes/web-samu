@@ -41,8 +41,9 @@ export class RequestRepositoryImpl implements TARMRequestRepository {
 
   async close(): Promise<void> {}
 
-  async send({ id }: TARMRequestRepository.SendParams): Promise<void> {
+  async send({ id, notes }: TARMRequestRepository.SendParams): Promise<void> {
     await firestore.collection("AmbulanceRequest").doc(id).update({
+      notes,
       state: 1,
     });
   }

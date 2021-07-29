@@ -1,10 +1,9 @@
 import React from "react";
-import useSWR from "swr";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Container } from "./styles";
-import { ChatComponent } from "./components";
-import { RequestUseCase } from "../../../domain/usecases";
+import { ChatComponent, FastQuestions, Send } from "./components";
+import { TARMRequestUseCase } from "../../../domain/usecases";
 import { ChatUseCase } from "core/domain/usecases";
 
 type Params = {
@@ -12,22 +11,33 @@ type Params = {
 };
 
 type Props = {
-  useRequest: RequestUseCase;
+  useRequest: TARMRequestUseCase;
   useChat: ChatUseCase;
 };
 
 export const TARMRequestScreen: React.FC<Props> = ({ useRequest, useChat }) => {
   const { id } = useParams<Params>();
-  const { data } = useSWR(id, (id) => useRequest.getOne(id));
 
-  async function sendRequest() {
-    await useRequest.send({ id });
+  const history = useHistory();
+
+  async function sendRequest(notes: string) {
+    await useRequest.send({ id, notes });
+    history.push("/");
+  }
+
+  async function sendQuestion(question: string, answers: string[]) {
+    await useChat.post(id, question, answers);
   }
 
   return (
     <Container>
       <ChatComponent id={id} useChat={useChat} />
-      <button onClick={sendRequest}>Enviar</button>
+      <FastQuestions
+        sendQuestion={(question: string, answers: string[]) =>
+          sendQuestion(question, answers)
+        }
+      />
+      <Send sendFunction={(notes: string) => sendRequest(notes)} />
     </Container>
   );
 };

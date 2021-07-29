@@ -1,18 +1,23 @@
 import { useAuth } from "modules/auth/data/context/auth";
 import React from "react";
 
-import { Container } from "./styles";
+import { Container, TitleContainer, Button } from "./styles";
 
 export const SelectFunctionScreen: React.FC = () => {
   const { setRole } = useAuth();
 
   return (
     <Container>
-      <button onClick={() => setRole("TARM")}>TARM</button>
-      <button onClick={() => setRole("MEDICO_REGULADOR")}>
+      <TitleContainer>
+        <h1>Urgência 192</h1>
+        <p>Qual é a sua função?</p>
+      </TitleContainer>
+
+      <Button onClick={() => setRole("TARM")}>TARM</Button>
+      <Button onClick={() => setRole("MEDICO_REGULADOR")}>
         Médico Regulador
-      </button>
-      <button onClick={() => setRole("RADIO_OPERADOR")}>Rádio Operador</button>
+      </Button>
+      <Button onClick={() => setRole("RADIO_OPERADOR")}>Rádio Operador</Button>
     </Container>
   );
 };

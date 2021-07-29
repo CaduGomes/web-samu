@@ -1,1 +1,1 @@
-export * from "./request-repository-impl";
+export * from "./medico-request-repository-impl";

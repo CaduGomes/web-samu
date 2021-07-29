@@ -15,6 +15,7 @@ export declare namespace TARMRequestRepository {
   };
   type SendParams = {
     id: string;
+    notes: string;
   };
   type CloseParams = {
     id: string;

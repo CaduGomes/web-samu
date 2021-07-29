@@ -1,32 +1,51 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import useSWR from "swr";
 
-import { RequestUseCase } from "../../../domain/usecases/request-usecase";
-import { Container, RequestsContainer } from "./styles";
-import { Card } from "./components";
+import { TARMRequestUseCase } from "../../../domain/usecases";
+import { Button, Item, List, Name, Date, Table } from "./styles";
 
 type Props = {
-  useRequest: RequestUseCase;
+  useRequest: TARMRequestUseCase;
 };
 
 export const TARMRequestListScreen: React.FC<Props> = ({ useRequest }) => {
-  const { data, error } = useSWR("tarm-requests", () => useRequest.get(), {
+  const { data } = useSWR("tarm-requests", () => useRequest.get(), {
     refreshInterval: 5000,
   });
 
+  const history = useHistory();
+
+  if (!data) {
+    return null;
+  }
+
+  if (data?.length === 0) {
+    return null;
+  }
+
   return (
-    <Container>
-      {!data && !error ? (
-        <p>Loading...</p>
-      ) : data ? (
-        <RequestsContainer>
+    <List>
+      <Table>
+        <thead>
+          <tr>
+            <th>Identificador</th>
+            <th>Data</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
           {data.map((request, index) => (
-            <Card key={`request-${index}`} data={request} />
+            <Item key={`request-${index}`}>
+              <Name>{request.id}</Name>
+              <Date>{request.createAt.toLocaleString()}</Date>
+              <Button onClick={() => history.push("/request/" + request.id)}>
+                Mais detalhes
+              </Button>
+            </Item>
           ))}
-        </RequestsContainer>
-      ) : (
-        <p>Nenhuma request encontrada</p>
-      )}
-    </Container>
+        </tbody>
+      </Table>
+    </List>
   );
 };

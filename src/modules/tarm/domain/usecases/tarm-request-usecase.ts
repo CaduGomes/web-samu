@@ -1,6 +1,6 @@
 import { TARMRequestRepository } from "../repositories";
 
-export class RequestUseCase {
+export class TARMRequestUseCase {
   constructor(private readonly requestRepository: TARMRequestRepository) {}
 
   async get(): Promise<TARMRequestRepository.Model[]> {
@@ -30,9 +30,9 @@ export class RequestUseCase {
     }
   }
 
-  async send({ id }: TARMRequestRepository.SendParams): Promise<void> {
+  async send({ id, notes }: TARMRequestRepository.SendParams): Promise<void> {
     try {
-      await this.requestRepository.send({ id });
+      await this.requestRepository.send({ id, notes });
     } catch (err) {
       throw new Error("Erro ao enviar para o médico regulador");
     }

@@ -1,6 +1,6 @@
 import { MedicoRequestRepository } from "../repositories";
 
-export class RequestUseCase {
+export class MedicoRequestUseCase {
   constructor(
     private readonly MedicoRequestRepository: MedicoRequestRepository
   ) {}
@@ -32,9 +32,9 @@ export class RequestUseCase {
     }
   }
 
-  async send({ id }: MedicoRequestRepository.SendParams): Promise<void> {
+  async send({ id, notes }: MedicoRequestRepository.SendParams): Promise<void> {
     try {
-      await this.MedicoRequestRepository.send({ id });
+      await this.MedicoRequestRepository.send({ id, notes });
     } catch (err) {
       throw new Error("Erro ao enviar para o médico regulador");
     }

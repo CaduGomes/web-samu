@@ -16,9 +16,13 @@ export class ChatUseCase {
     this.chatClient.detach(observer);
   }
 
-  async post(id: string, text: string): Promise<void> {
+  async post(id: string, text: string, answers?: string[]): Promise<void> {
     try {
-      await this.chatClient.post({ id, text });
+      if (answers) {
+        await this.chatClient.post({ id, text, answers });
+      } else {
+        await this.chatClient.post({ id, text });
+      }
     } catch (err) {
       throw new Error(err);
     }

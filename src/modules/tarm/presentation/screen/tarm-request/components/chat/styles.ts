@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MessageDirectionEntity } from "core/domain/entities";
 
 export const Container = styled.div`
+  grid-area: Chat;
   display: grid;
   height: 100%;
   width: 100%;

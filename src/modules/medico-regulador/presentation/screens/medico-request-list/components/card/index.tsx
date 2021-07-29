@@ -13,7 +13,6 @@ export const Card: React.FC<Props> = ({ data }) => {
     <Container to={`/request/${data.id}`}>
       <p>Id: {data.id}</p>
       <p>Data: {data.createAt.toLocaleString()}</p>
-      <p>Aberta: {data.isOpen ? "Sim" : "Não"}</p>
     </Container>
   );
 };

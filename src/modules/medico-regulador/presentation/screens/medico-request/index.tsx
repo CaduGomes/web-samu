@@ -6,7 +6,7 @@ import {
   ChatContainer,
   DataContainer,
   ImagesContainer,
-  MapView,
+  SendContainer,
 } from "./components";
 
 import {
@@ -19,14 +19,16 @@ import {
 } from "./styles";
 
 import { ChatUseCase } from "core/domain/usecases";
-import { RequestUseCase } from "../../../domain/usecases";
+import { MedicoRequestUseCase } from "../../../domain/usecases";
+import { MapView } from "core/components";
+import { useHistory } from "react-router-dom";
 
 type Params = {
   id: string;
 };
 
 type Props = {
-  useRequests: RequestUseCase;
+  useRequests: MedicoRequestUseCase;
   useChat: ChatUseCase;
 };
 
@@ -35,15 +37,27 @@ export const MedicoRequestScreen: React.FC<Props> = ({
   useChat,
 }) => {
   const { id } = useParams<Params>();
+  const history = useHistory();
 
-  const { data, error } = useSWR(id, (id) => useRequests.getOne(id), {
-    refreshInterval: 10000,
-  });
+  const { data, error } = useSWR(
+    "medico-request-" + id,
+    () => useRequests.getOne(id),
+    {
+      refreshInterval: 10000,
+    }
+  );
 
-  async function sendRequest() {
+  async function sendRequest(notes: string) {
     await useRequests.send({
       id,
+      notes,
     });
+    history.push("/");
+  }
+
+  async function cancelRequest() {
+    await useRequests.close({ id });
+    history.push("/");
   }
 
   return (
@@ -54,13 +68,13 @@ export const MedicoRequestScreen: React.FC<Props> = ({
         <>
           <DataArea>
             <Title>Dados</Title>
-            <button onClick={sendRequest}>Enviar</button>
-            <DataContainer
-              id={id}
-              createAt={data.createAt.toLocaleString()}
-              isOpen={data.isOpen}
-            />
+            <DataContainer id={id} createAt={data.createAt.toLocaleString()} />
           </DataArea>
+          <SendContainer
+            cancelRequest={cancelRequest}
+            initialNotes={data.notes}
+            sendRequest={(notes: string) => sendRequest(notes)}
+          />
           <ImagesArea>
             <Title>Imagens e Vídeos</Title>
             <ImagesContainer images={data.images} videos={data.videos} />

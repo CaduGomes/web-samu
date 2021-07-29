@@ -10,7 +10,7 @@ import { MedicoRequestRepository } from "../../domain/repositories";
 //     snap.data() as RequestEntity,
 // };
 
-export class RequestRepositoryImpl implements MedicoRequestRepository {
+export class MedicoRequestRepositoryImpl implements MedicoRequestRepository {
   async get(): Promise<MedicoRequestRepository.Model[]> {
     const querySnapshot = await firestore
       .collection("AmbulanceRequest")
@@ -27,6 +27,7 @@ export class RequestRepositoryImpl implements MedicoRequestRepository {
         lat: doc.data().location.latitude,
         lng: doc.data().location.longitude,
       },
+      notes: doc.data().notes,
     }));
     console.log(requests);
 
@@ -48,11 +49,11 @@ export class RequestRepositoryImpl implements MedicoRequestRepository {
         id: querySnapshot.id,
         images: doc.images,
         videos: doc.videos,
-        isOpen: doc.isOpen,
         location: {
           lat: doc.location.latitude,
           lng: doc.location.longitude,
         },
+        notes: doc.notes,
       };
 
       return request;
@@ -60,11 +61,16 @@ export class RequestRepositoryImpl implements MedicoRequestRepository {
     throw new Error("Erro ao pegar documento: " + id);
   }
 
-  async close(): Promise<void> {}
+  async close({ id }: MedicoRequestRepository.CloseParams): Promise<void> {
+    await firestore.collection("AmbulanceRequest").doc(id).update({
+      state: 3,
+    });
+  }
 
-  async send({ id }: MedicoRequestRepository.SendParams): Promise<void> {
+  async send({ id, notes }: MedicoRequestRepository.SendParams): Promise<void> {
     await firestore.collection("AmbulanceRequest").doc(id).update({
       state: 2,
+      notes,
     });
   }
 }

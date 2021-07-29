@@ -27,6 +27,7 @@ export class RadioRequestRepositoryImpl implements RadioRequestRepository {
         lat: doc.data().location.latitude,
         lng: doc.data().location.longitude,
       },
+      notes: doc.data().notes,
     }));
     console.log(requests);
 
@@ -52,6 +53,7 @@ export class RadioRequestRepositoryImpl implements RadioRequestRepository {
           lat: doc.location.latitude,
           lng: doc.location.longitude,
         },
+        notes: doc.notes,
       };
 
       return request;

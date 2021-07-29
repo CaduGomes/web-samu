@@ -6,4 +6,6 @@ export type MessageEntity = {
   text: string;
   direction: MessageDirectionEntity;
   createdAt: firebase.firestore.FieldValue;
+  answers?: string[];
+  answered?: boolean;
 };

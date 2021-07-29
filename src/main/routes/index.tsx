@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Switch } from "react-router-dom";
 import { useAuth } from "modules/auth/data/context/auth";
 import { MakeNavbar } from "../factories/components";
 
@@ -43,7 +43,12 @@ function RoleSelector() {
         return <AuthRouter />;
     }
 
-  return <AuthRouter />;
+  return (
+    <>
+      <Redirect to="/" />
+      <AuthRouter />
+    </>
+  );
 }
 
 export const Router: React.FC = () => {

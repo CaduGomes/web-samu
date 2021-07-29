@@ -4,9 +4,9 @@ export const Container = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-areas: "Data Images" "Chat Map";
+  grid-template-areas: "Data Send Images" "Chat Chat Map";
   grid-template-rows: 1fr 2fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.5fr 0.5fr 1fr;
 `;
 
 export const DataArea = styled.div`

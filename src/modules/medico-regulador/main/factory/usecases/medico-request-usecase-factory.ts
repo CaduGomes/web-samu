@@ -1,5 +1,5 @@
-import { RequestRepositoryImpl } from "modules/medico-regulador/data/repositories";
-import { RequestUseCase } from "../../../domain/usecases";
+import { MedicoRequestRepositoryImpl } from "modules/medico-regulador/data/repositories";
+import { MedicoRequestUseCase } from "../../../domain/usecases";
 
 export const makeRequestUseCase = () =>
-  new RequestUseCase(new RequestRepositoryImpl());
+  new MedicoRequestUseCase(new MedicoRequestRepositoryImpl());

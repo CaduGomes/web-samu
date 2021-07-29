@@ -1,31 +1,50 @@
 import React from "react";
 import useSWR from "swr";
-import { Container, RequestsContainer } from "./styles";
-import { Card } from "./components";
-import { RequestUseCase } from "../../../domain/usecases";
+import { Button, Date, Item, List, Name, Table } from "./styles";
+import { MedicoRequestUseCase } from "../../../domain/usecases";
+import { useHistory } from "react-router-dom";
 
 type Props = {
-  useRequest: RequestUseCase;
+  useRequest: MedicoRequestUseCase;
 };
 
 export const MedicoRequestListScreen: React.FC<Props> = ({ useRequest }) => {
-  const { data, error } = useSWR("medico-requests", () => useRequest.get(), {
+  const { data } = useSWR("medico-requests", () => useRequest.get(), {
     refreshInterval: 5000,
   });
 
+  const history = useHistory();
+
+  if (!data) {
+    return null;
+  }
+
+  if (data?.length === 0) {
+    return null;
+  }
+
   return (
-    <Container>
-      {!data && !error ? (
-        <p>Loading...</p>
-      ) : data ? (
-        <RequestsContainer>
+    <List>
+      <Table>
+        <thead>
+          <tr>
+            <th>Identificador</th>
+            <th>Data</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
           {data.map((request, index) => (
-            <Card key={`request-${index}`} data={request} />
+            <Item key={`request-${index}`}>
+              <Name>{request.id}</Name>
+              <Date>{request.createAt.toLocaleString()}</Date>
+              <Button onClick={() => history.push("/request/" + request.id)}>
+                Mais detalhes
+              </Button>
+            </Item>
           ))}
-        </RequestsContainer>
-      ) : (
-        <p>Nenhuma request encontrada</p>
-      )}
-    </Container>
+        </tbody>
+      </Table>
+    </List>
   );
 };
