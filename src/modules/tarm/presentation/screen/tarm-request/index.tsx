@@ -2,9 +2,10 @@ import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import { Container } from "./styles";
-import { ChatComponent, FastQuestions, Send } from "./components";
+import { FastQuestions, Send } from "./components";
 import { TARMRequestUseCase } from "../../../domain/usecases";
 import { ChatUseCase } from "core/domain/usecases";
+import { MakeChat } from "main/factories/components";
 
 type Params = {
   id: string;
@@ -31,7 +32,7 @@ export const TARMRequestScreen: React.FC<Props> = ({ useRequest, useChat }) => {
 
   return (
     <Container>
-      <ChatComponent id={id} useChat={useChat} />
+      <MakeChat id={id} />
       <FastQuestions
         sendQuestion={(question: string, answers: string[]) =>
           sendQuestion(question, answers)

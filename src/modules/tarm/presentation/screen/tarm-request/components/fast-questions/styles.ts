@@ -8,10 +8,10 @@ export const Container = styled.div`
 
 export const QuestionContainer = styled.div`
   margin: 20px;
-  width: 150px;
+  width: 200px;
   padding: 7px;
   border-radius: 8px;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   text-align: center;
   cursor: pointer;
 `;

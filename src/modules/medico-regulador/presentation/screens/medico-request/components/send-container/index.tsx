@@ -1,3 +1,4 @@
+import { CustomButton } from "core/components";
 import React from "react";
 import { useState } from "react";
 
@@ -18,11 +19,14 @@ export const SendContainer: React.FC<Props> = ({
   return (
     <Container>
       <InputContainer>
+        <label>Anotações</label>
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
       </InputContainer>
       <ButtonContainer>
-        <button onClick={cancelRequest}>Cancelar chamada</button>
-        <button onClick={() => sendRequest(notes)}>Enviar para operador</button>
+        <CustomButton onClick={cancelRequest}>Cancelar chamada</CustomButton>
+        <CustomButton onClick={() => sendRequest(notes)}>
+          Enviar para operador
+        </CustomButton>
       </ButtonContainer>
     </Container>
   );

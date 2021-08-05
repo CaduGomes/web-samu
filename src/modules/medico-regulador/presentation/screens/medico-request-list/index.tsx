@@ -12,7 +12,7 @@ export const MedicoRequestListScreen: React.FC<Props> = ({ useRequest }) => {
   const { data } = useSWR("medico-requests", () => useRequest.get(), {
     refreshInterval: 5000,
   });
-
+  console.log(data);
   const history = useHistory();
 
   if (!data) {

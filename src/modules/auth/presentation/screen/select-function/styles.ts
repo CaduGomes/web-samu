@@ -1,3 +1,4 @@
+import { CustomButton } from "core/components";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -21,25 +22,45 @@ export const TitleContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Button = styled.button`
+export const Button = styled(CustomButton)`
+  margin-top: 40px;
   width: 200px;
   height: 40px;
-  margin-top: 40px;
-  border-radius: 18px;
-  background-color: white;
-  border: solid 1px transparent;
-  color: ${(props) => props.theme.colors.primary};
   font-size: 18px;
   font-weight: 300;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
+  color: ${(props) => props.theme.colors.primary};
+  background-color: white;
+  transition: all 0.4s linear;
   -webkit-box-shadow: 6px 14px 16px -10px rgba(0, 0, 0, 0.41);
   -moz-box-shadow: 6px 14px 16px -10px rgba(0, 0, 0, 0.41);
   box-shadow: 6px 14px 16px -10px rgba(0, 0, 0, 0.41);
 
   &:hover {
-    transform: scale(1.02);
-    transition: all 0.1s ease-in-out;
+    color: ${(props) => props.theme.colors.primary};
+    background-color: white;
+    transform: scale(1.05);
   }
 `;
+
+// export const Button = styled.button`
+//   width: 200px;
+//   height: 40px;
+//   margin-top: 40px;
+//   border-radius: 18px;
+//   background-color: white;
+//   border: solid 1px transparent;
+//   color: ${(props) => props.theme.colors.primary};
+//   font-size: 18px;
+//   font-weight: 300;
+//   cursor: pointer;
+//   transition: all 0.2s ease-in-out;
+
+//   -webkit-box-shadow: 6px 14px 16px -10px rgba(0, 0, 0, 0.41);
+//   -moz-box-shadow: 6px 14px 16px -10px rgba(0, 0, 0, 0.41);
+//   box-shadow: 6px 14px 16px -10px rgba(0, 0, 0, 0.41);
+
+//   &:hover {
+//     transform: scale(1.02);
+//     transition: all 0.1s ease-in-out;
+//   }
+// `;

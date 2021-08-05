@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MessageDirectionEntity } from "core/domain/entities";
 
 export const Container = styled.div`
+  grid-area: Chat;
   display: grid;
   height: 100%;
   width: 100%;
@@ -36,13 +37,14 @@ type MessageProps = {
 export const Message = styled.div<MessageProps>`
   position: absolute;
   padding: 5px;
-  border: 1px solid black;
   color: white;
   border-radius: 6px;
   left: ${(props) => (props.direction === "client" ? "30px" : "")};
   right: ${(props) => (props.direction === "admin" ? "30px" : "")};
   background-color: ${(props) =>
-    props.direction === "admin" ? "#056162" : "#262D31"};
+    props.direction === "admin"
+      ? props.theme.colors.primary
+      : props.theme.colors.secondary};
   bottom: calc(50px * ${(props) => props.index});
 `;
 

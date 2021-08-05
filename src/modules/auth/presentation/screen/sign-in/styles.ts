@@ -1,3 +1,4 @@
+import { CustomButton } from "core/components";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -35,23 +36,10 @@ export const TextInput = styled.input`
   padding-left: 15px;
 `;
 
-export const SignInButton = styled.button`
+export const Button = styled(CustomButton)`
   width: 200px;
-  height: 40px;
-  margin-top: 40px;
-  border-radius: 18px;
-  background-color: ${(props) => props.theme.colors.primary};
-  border: solid 1px transparent;
-  color: #fff;
+  height: 50px;
+  margin-top: 30px;
   font-size: 18px;
   font-weight: 300;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: transparent;
-    border-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.primary};
-    transition: all 0.1s ease-in-out;
-  }
 `;

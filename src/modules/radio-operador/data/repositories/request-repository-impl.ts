@@ -28,6 +28,8 @@ export class RadioRequestRepositoryImpl implements RadioRequestRepository {
         lng: doc.data().location.longitude,
       },
       notes: doc.data().notes,
+      MedicoReguladorDate: doc.data().MedicoReguladorDate.toDate(),
+      TARMDate: doc.data().TARMDate.toDate(),
     }));
     console.log(requests);
 
@@ -54,6 +56,8 @@ export class RadioRequestRepositoryImpl implements RadioRequestRepository {
           lng: doc.location.longitude,
         },
         notes: doc.notes,
+        MedicoReguladorDate: doc.MedicoReguladorDate.toDate(),
+        TARMDate: doc.TARMDate.toDate(),
       };
 
       return request;

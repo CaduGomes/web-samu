@@ -1,4 +1,5 @@
 // import firebase from "firebase/app";
+import firebase from "firebase/app";
 import { firestore } from "core/infra/firebase";
 
 import { TARMRequestEntity } from "../../domain/entities";
@@ -45,6 +46,7 @@ export class RequestRepositoryImpl implements TARMRequestRepository {
     await firestore.collection("AmbulanceRequest").doc(id).update({
       notes,
       state: 1,
+      TARMDate: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
 }

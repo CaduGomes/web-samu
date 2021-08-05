@@ -1,14 +1,8 @@
 // import firebase from "firebase/app";
+import firebase from "firebase/app";
 import { firestore } from "core/infra/firebase";
-
 import { MedicoRequestEntity } from "../../domain/entities";
 import { MedicoRequestRepository } from "../../domain/repositories";
-
-// const converter = {
-//   toFirestore: (data: RequestEntity) => data,
-//   fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
-//     snap.data() as RequestEntity,
-// };
 
 export class MedicoRequestRepositoryImpl implements MedicoRequestRepository {
   async get(): Promise<MedicoRequestRepository.Model[]> {
@@ -28,7 +22,9 @@ export class MedicoRequestRepositoryImpl implements MedicoRequestRepository {
         lng: doc.data().location.longitude,
       },
       notes: doc.data().notes,
+      TARMDate: doc.data().TARMDate.toDate(),
     }));
+
     console.log(requests);
 
     return requests;
@@ -54,6 +50,7 @@ export class MedicoRequestRepositoryImpl implements MedicoRequestRepository {
           lng: doc.location.longitude,
         },
         notes: doc.notes,
+        TARMDate: doc.TARMDate.toDate(),
       };
 
       return request;
@@ -71,6 +68,7 @@ export class MedicoRequestRepositoryImpl implements MedicoRequestRepository {
     await firestore.collection("AmbulanceRequest").doc(id).update({
       state: 2,
       notes,
+      MedicoReguladorDate: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
 }

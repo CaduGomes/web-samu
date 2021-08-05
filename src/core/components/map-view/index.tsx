@@ -81,7 +81,6 @@ export const MapView: React.FC<Props> = ({ latitude, longitude }) => {
         },
         (response: any) => {
           if (response && response?.rows[0].elements[0].duration.text) {
-            console.log(response?.rows[0].elements[0]);
             ambulance.distance = response?.rows[0].elements[0].duration.text;
             newArray.push(ambulance);
           }

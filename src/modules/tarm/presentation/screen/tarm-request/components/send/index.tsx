@@ -1,3 +1,4 @@
+import { CustomButton } from "core/components";
 import React, { useState } from "react";
 
 import { Container, InputContainer, ButtonContainer } from "./styles";
@@ -11,12 +12,13 @@ export const Send: React.FC<Props> = ({ sendFunction }) => {
   return (
     <Container>
       <InputContainer>
+        <label>Anotações</label>
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
       </InputContainer>
       <ButtonContainer>
-        <button onClick={() => sendFunction(notes)}>
+        <CustomButton onClick={() => sendFunction(notes)}>
           Enviar para o regulador
-        </button>
+        </CustomButton>
       </ButtonContainer>
     </Container>
   );

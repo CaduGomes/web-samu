@@ -5,8 +5,8 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   grid-template-areas: "Data Send Images" "Chat Chat Map";
-  grid-template-rows: 1fr 2fr;
-  grid-template-columns: 0.5fr 0.5fr 1fr;
+  grid-template-rows: 1fr 1.2fr;
+  grid-template-columns: 0.6fr 0.4fr 0.6fr;
 `;
 
 export const DataArea = styled.div`
@@ -17,19 +17,14 @@ export const DataArea = styled.div`
   width: 100%;
   height: 100%;
   padding-left: 20px;
-`;
-
-export const Title = styled.h2`
-  padding: 10px 0;
+  padding-bottom: 10px;
 `;
 
 export const ImagesArea = styled.div`
   grid-area: Images;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   width: 100%;
   height: 100%;
+  padding: 20px 10px 10px 0px;
 `;
 
 export const ChatArea = styled.div`
@@ -45,5 +40,4 @@ export const MapArea = styled.div`
   grid-area: Map;
   width: 100%;
   height: 100%;
-  z-index: 999;
 `;

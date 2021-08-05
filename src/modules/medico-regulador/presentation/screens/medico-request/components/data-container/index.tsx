@@ -1,17 +1,26 @@
 import React from "react";
+import { EscalaGlasglow } from "../escala-glasglow";
 
-import { Container } from "./styles";
+import { Container, Data } from "./styles";
 
 type Props = {
   id: string;
   createAt: string;
+  TARMDate: string;
 };
 
-export const DataContainer: React.FC<Props> = ({ createAt, id }) => {
+export const DataContainer: React.FC<Props> = ({ createAt, id, TARMDate }) => {
   return (
     <Container>
-      <p>Id: {id}</p>
-      <p>Data: {createAt}</p>
+      <Data>
+        <label>Data do chamado</label>
+        <p>{createAt}</p>
+      </Data>
+      <Data>
+        <label>Finalizado pelo TARM</label>
+        <p>{TARMDate}</p>
+      </Data>
+      <EscalaGlasglow />
     </Container>
   );
 };

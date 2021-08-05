@@ -18,4 +18,5 @@ export type MedicoRequestEntity = {
     lat: number;
     lng: number;
   };
+  TARMDate: Date;
 };

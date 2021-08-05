@@ -53,6 +53,14 @@ export const RadioRequestScreen: React.FC<Props> = ({ useRequest }) => {
           <label>Horário da chamada</label>
           <p>{data.createAt.toLocaleString()}</p>
         </Data>
+        <Data>
+          <label>Finalizado pelo TARM</label>
+          <p>{data.TARMDate.toLocaleString()}</p>
+        </Data>
+        <Data>
+          <label>Finalizado pelo Médico Regulador</label>
+          <p>{data.MedicoReguladorDate.toLocaleString()}</p>
+        </Data>
 
         <Data>
           <label>Notas do médico</label>

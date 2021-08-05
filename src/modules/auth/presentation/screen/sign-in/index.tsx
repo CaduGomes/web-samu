@@ -4,9 +4,9 @@ import { AuthUseCase } from "../../../domain/usecases";
 import {
   Container,
   InputsContainer,
-  SignInButton,
   SignInForm,
   TextInput,
+  Button,
 } from "./styles";
 
 type Props = {
@@ -46,7 +46,7 @@ export const SignInScreen: React.FC<Props> = ({ useAuthentication }) => {
             required
           />
         </InputsContainer>
-        <SignInButton>Entrar</SignInButton>
+        <Button>Entrar</Button>
       </SignInForm>
     </Container>
   );

@@ -2,6 +2,8 @@ export type RadioRequestEntity = {
   id: string;
   notes: string;
   createAt: Date;
+  TARMDate: Date;
+  MedicoReguladorDate: Date;
   images: [
     {
       name: string;

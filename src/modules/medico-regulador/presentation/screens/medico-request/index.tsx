@@ -2,26 +2,15 @@ import React from "react";
 import { useParams } from "react-router";
 import useSWR from "swr";
 
-import {
-  ChatContainer,
-  DataContainer,
-  ImagesContainer,
-  SendContainer,
-} from "./components";
+import { DataContainer, ImagesContainer, SendContainer } from "./components";
 
-import {
-  Container,
-  ChatArea,
-  DataArea,
-  MapArea,
-  Title,
-  ImagesArea,
-} from "./styles";
+import { Container, ChatArea, DataArea, MapArea, ImagesArea } from "./styles";
 
 import { ChatUseCase } from "core/domain/usecases";
 import { MedicoRequestUseCase } from "../../../domain/usecases";
 import { MapView } from "core/components";
 import { useHistory } from "react-router-dom";
+import { MakeChat } from "main/factories/components";
 
 type Params = {
   id: string;
@@ -67,8 +56,11 @@ export const MedicoRequestScreen: React.FC<Props> = ({
       ) : data ? (
         <>
           <DataArea>
-            <Title>Dados</Title>
-            <DataContainer id={id} createAt={data.createAt.toLocaleString()} />
+            <DataContainer
+              TARMDate={data.TARMDate.toLocaleString()}
+              id={id}
+              createAt={data.createAt.toLocaleString()}
+            />
           </DataArea>
           <SendContainer
             cancelRequest={cancelRequest}
@@ -76,11 +68,10 @@ export const MedicoRequestScreen: React.FC<Props> = ({
             sendRequest={(notes: string) => sendRequest(notes)}
           />
           <ImagesArea>
-            <Title>Imagens e Vídeos</Title>
             <ImagesContainer images={data.images} videos={data.videos} />
           </ImagesArea>
           <ChatArea>
-            <ChatContainer useChat={useChat} id={id} />
+            <MakeChat id={id} />
           </ChatArea>
           <MapArea>
             <MapView
