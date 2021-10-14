@@ -37,6 +37,7 @@ type MessageProps = {
 export const Message = styled.div<MessageProps>`
   position: absolute;
   padding: 5px;
+  max-width: 80%;
   color: white;
   border-radius: 6px;
   left: ${(props) => (props.direction === "client" ? "30px" : "")};
@@ -45,7 +46,7 @@ export const Message = styled.div<MessageProps>`
     props.direction === "admin"
       ? props.theme.colors.primary
       : props.theme.colors.secondary};
-  bottom: calc(50px * ${(props) => props.index});
+  bottom: calc(60px * ${(props) => props.index});
 `;
 
 export const Input = styled.input`

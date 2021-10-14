@@ -46,8 +46,8 @@ html, body {
 
   .ImageModal {
     position: absolute;
-    width: auto;
-    height: 80%;
+    width: 450px;
+    height: auto;
     border: 1px solid black;
     top: 40px;
     left: 40px;
