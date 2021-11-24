@@ -27,9 +27,9 @@ export const EscalaGlasglow: React.FC = () => {
   const [aberturaOcular, setAberturaOcular] = useState(1);
   const [respostaVerbal, setRespostaVerbal] = useState(1);
   const [respostaMotora, setRespostaMotora] = useState(1);
+  const [reaçãoPupilar, setReaçãoPupilar] = useState(0);
 
   function closeHandler() {
-    console.log(aberturaOcular + respostaMotora + respostaVerbal);
     setModalOpen(false);
   }
 
@@ -64,7 +64,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={aberturaOcular === 1}
                     onChange={(e) => setAberturaOcular(+e.target.value)}
                   />
-                  Ausente. +1
+                  Nenhuma. +1
                 </label>
               </div>
               <div className="radio">
@@ -75,7 +75,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={aberturaOcular === 2}
                     onChange={(e) => setAberturaOcular(+e.target.value)}
                   />
-                  Ao estímulo doloroso. +2
+                  Ao estímulo de pressão. +2
                 </label>
               </div>
               <div className="radio">
@@ -86,7 +86,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={aberturaOcular === 3}
                     onChange={(e) => setAberturaOcular(+e.target.value)}
                   />
-                  Ordem verbal. +3
+                  Ao estímulo sonoro. +3
                 </label>
               </div>
               <div className="radio">
@@ -103,7 +103,7 @@ export const EscalaGlasglow: React.FC = () => {
             </RadiosContainer>
           </Row>
           <Row>
-            <p>Melhor Resposta Verbal</p>
+            <p>Resposta Verbal</p>
 
             <RadiosContainer>
               <div className="radio">
@@ -114,7 +114,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaVerbal === 1}
                     onChange={(e) => setRespostaVerbal(+e.target.value)}
                   />
-                  Ausente. +1
+                  Nenhuma. +1
                 </label>
               </div>
               <div className="radio">
@@ -125,7 +125,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaVerbal === 2}
                     onChange={(e) => setRespostaVerbal(+e.target.value)}
                   />
-                  Gemido a dor. +2
+                  Verbaliza sons. +2
                 </label>
               </div>
               <div className="radio">
@@ -136,7 +136,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaVerbal === 3}
                     onChange={(e) => setRespostaVerbal(+e.target.value)}
                   />
-                  Choro por estímulo doloroso. +3
+                  Verbaliza palavras soltas. +3
                 </label>
               </div>
               <div className="radio">
@@ -147,7 +147,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaVerbal === 4}
                     onChange={(e) => setRespostaVerbal(+e.target.value)}
                   />
-                  Choro irritado. +4
+                  Confusa. +4
                 </label>
               </div>
               <div className="radio">
@@ -158,7 +158,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaVerbal === 5}
                     onChange={(e) => setRespostaVerbal(+e.target.value)}
                   />
-                  Balbucio. +5
+                  Orientada. +5
                 </label>
               </div>
             </RadiosContainer>
@@ -175,7 +175,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaMotora === 1}
                     onChange={(e) => setRespostaMotora(+e.target.value)}
                   />
-                  Ausente. +1
+                  Nenhuma. +1
                 </label>
               </div>
               <div className="radio">
@@ -186,7 +186,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaMotora === 2}
                     onChange={(e) => setRespostaMotora(+e.target.value)}
                   />
-                  Descerebração. +2
+                  Extensão anormal. +2
                 </label>
               </div>
               <div className="radio">
@@ -197,7 +197,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaMotora === 3}
                     onChange={(e) => setRespostaMotora(+e.target.value)}
                   />
-                  Decorticação. +3
+                  Flexão anormal. +3
                 </label>
               </div>
               <div className="radio">
@@ -208,7 +208,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaMotora === 4}
                     onChange={(e) => setRespostaMotora(+e.target.value)}
                   />
-                  Reage à dor. +4
+                  Flexão normal. +4
                 </label>
               </div>
               <div className="radio">
@@ -219,7 +219,7 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaMotora === 5}
                     onChange={(e) => setRespostaMotora(+e.target.value)}
                   />
-                  Reage ao toque. +5
+                  Localiza estímulo. +5
                 </label>
               </div>
               <div className="radio">
@@ -230,13 +230,52 @@ export const EscalaGlasglow: React.FC = () => {
                     checked={respostaMotora === 6}
                     onChange={(e) => setRespostaMotora(+e.target.value)}
                   />
-                  Espontânea e normal. +6
+                  Obedece comandos. +6
+                </label>
+              </div>
+            </RadiosContainer>
+          </Row>
+          <Row>
+            <p>Avaliação Pupilar</p>
+
+            <RadiosContainer>
+              <div className="radio">
+                <label>
+                  <input
+                    type="radio"
+                    value={0}
+                    checked={reaçãoPupilar === 0}
+                    onChange={(e) => setReaçãoPupilar(+e.target.value)}
+                  />
+                  As duas pupilar reagem ao estímulo de luz. +0
+                </label>
+              </div>
+              <div className="radio">
+                <label>
+                  <input
+                    type="radio"
+                    value={1}
+                    checked={reaçãoPupilar === 1}
+                    onChange={(e) => setReaçãoPupilar(+e.target.value)}
+                  />
+                  Apenas uma pupila reage ao estímulo de luz. +1
+                </label>
+              </div>
+              <div className="radio">
+                <label>
+                  <input
+                    type="radio"
+                    value={2}
+                    checked={reaçãoPupilar === 2}
+                    onChange={(e) => setReaçãoPupilar(+e.target.value)}
+                  />
+                  Nenhuma pupila reage ao estímulo de luz. +2
                 </label>
               </div>
             </RadiosContainer>
           </Row>
           <CloseContainer>
-            <p>Resultado: {aberturaOcular + respostaMotora + respostaVerbal}</p>
+            <p>Resultado: {(aberturaOcular + respostaMotora + respostaVerbal) - reaçãoPupilar}</p>
             <CustomButton className="btn btn-default" onClick={closeHandler}>
               Fechar
             </CustomButton>

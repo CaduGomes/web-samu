@@ -33,6 +33,10 @@ export const RadiosContainer = styled.div`
   input {
     margin-right: 10px;
   }
+  label {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const CloseContainer = styled.div`
